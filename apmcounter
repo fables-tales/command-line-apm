@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+
+import sys
+import os
+home = os.getenv("HOME")
+
+def set_score(scoreamount):
+    f = open(home + "/.apm", "w")
+    f.write(str(scoreamount))
+    f.close()
+
+
+def get_score():
+    try:
+        f = open(home + "/.apm", "r")
+        count = int(f.read())
+        return count
+    except:
+        return 0
+
+
+def main():
+    current_score = get_score()
+    
+    if len(sys.argv) > 1 and sys.argv[1] == "-n":
+        sys.stdout.write(str(current_score))
+        sys.stdout.flush()
+    else:
+        print current_score
+
+    set_score(current_score + 1)
+
+
+if __name__ == "__main__":
+    main()
